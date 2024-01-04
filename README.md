@@ -1,11 +1,11 @@
-# siders_backend_test
+# siders_backend_dev
 API開発のための開発環境の土台として使ってください。\
 APIの開発はDockerのデータベースと接続して行う感じでお願いします。\
 ある程度開発が進んだら、本番環境にデプロイしていこうと思います。
 
 ## ディレクトリ構成
 ```
-siders_backend_test
+siders_backend_dev
 ├── data
 ├── docker-compose.yaml
 ├── init
