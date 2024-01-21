@@ -10,9 +10,9 @@ CREATE SEQUENCE work_id_seq;
 CREATE SEQUENCE post_id_seq;
 CREATE SEQUENCE message_id_seq;
 CREATE SEQUENCE career_id_seq;
-CREATE SEQUENCE company_id_seq START 0000001;
-CREATE SEQUENCE student_id_seq START 0000001;
-CREATE SEQUENCE operator_id_seq START 0000001;
+CREATE SEQUENCE company_id_seq;
+CREATE SEQUENCE student_id_seq;
+CREATE SEQUENCE operator_id_seq;
 
 
 CREATE TABLE skill_t (
@@ -37,7 +37,7 @@ CREATE TABLE relation_t (
 );
 
 CREATE TABLE company_info_t (
-    company_id VARCHAR(8) PRIMARY KEY DEFAULT('C' || nextval('company_id_seq')),
+    company_id VARCHAR(8) PRIMARY KEY DEFAULT('C' || LPAD(nextval('company_id_seq')::text, 7, '0')),
     subscription_status BOOLEAN NOT NULL,
     company_mail_address VARCHAR(255) UNIQUE NOT NULL,
     company_pass VARCHAR(32) NOT NULL,
@@ -154,7 +154,7 @@ CREATE TABLE company_delete_request_t (
 );
 
 CREATE TABLE operator_t (
-    operator_id VARCHAR(8) PRIMARY KEY DEFAULT('O' || nextval('operator_id_seq')),
+    operator_id VARCHAR(8) PRIMARY KEY DEFAULT('O' || LPAD(nextval('operator_id_seq')::text, 7, '0')),
     operator_pass VARCHAR(32) NOT NULL,
     active_operator_flag BOOLEAN NOT NULL 
 );	
@@ -212,7 +212,7 @@ CREATE TABLE work_area_t (
 
 
 CREATE TABLE student_info_t (
-    student_id VARCHAR(8) PRIMARY KEY DEFAULT('S' || nextval('student_id_seq')),
+    student_id VARCHAR(8) PRIMARY KEY DEFAULT('S' || LPAD(nextval('student_id_seq')::text, 7, '0')),
     mail_address VARCHAR(255) UNIQUE NOT NULL,
     student_pass VARCHAR(32) NOT NULL,
     handle_name VARCHAR(30) NOT NULL,
@@ -283,13 +283,13 @@ CREATE TABLE timeline_t (
 
 CREATE TABLE bookmarked_post_t(
     post_id INTEGER REFERENCES timeline_t(post_id),
-    user_id VARCHAR(8) NOT NULL,
+    user_id VARCHAR(8) REFERENCES student_info_t(student_id),
     PRIMARY KEY(post_id, user_id) 
 );
 
 CREATE TABLE liked_post_t (
     post_id INTEGER REFERENCES timeline_t(post_id),
-    user_id VARCHAR(8) NOT NULL,
+    user_id VARCHAR(8) REFERENCES student_info_t(student_id),
     PRIMARY KEY(post_id, user_id) 
 );
 
@@ -305,8 +305,8 @@ CREATE TABLE message_t (
 );
 
 CREATE TABLE career_info_t (
-    student_id VARCHAR(8) REFERENCES student_info_t(student_id),
     career_id INTEGER DEFAULT nextval('career_id_seq'),
+    student_id VARCHAR(8) REFERENCES student_info_t(student_id),
     affiliation_id INTEGER NOT NULL,
     career_title VARCHAR(48) NOT NULL,
     career_detail VARCHAR(600) NOT NULL,
