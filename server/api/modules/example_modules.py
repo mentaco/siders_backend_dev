@@ -2,8 +2,9 @@ from flask import jsonify, request
 from .execute_query import exec_query
 
 # データを取得する関数の例
-def example_get_data():
+def example_get_data(arg1, arg2):
     try:
+        print(arg1, arg2)
         result = exec_query('SELECT * FROM skill_t')
         return jsonify({'data': result})
 

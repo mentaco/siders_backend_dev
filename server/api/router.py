@@ -5,7 +5,10 @@ module_router = Blueprint('module_router', __name__)
 
 @module_router.route('/example_data', methods=['GET'])
 def example_get_data_route():
-    return example_get_data()
+    arg1 = request.args.get('param1')
+    arg2 = request.args.get('param2')
+
+    return example_get_data(arg1, arg2)
 
 @module_router.route('/example_data', methods=['POST'])
 def example_add_data_route():
