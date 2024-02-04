@@ -28,7 +28,9 @@ def user_relation_del_route():
 
 @module_router.route('/get_message', methods=['GET'])
 def get_message_route():
-    return get_message()
+    arg1 = request.args.get('user_id')
+    print(arg1)
+    return get_message(arg1)
 
 @module_router.route('/add_message', methods=['POST'])
 def add_message_route():
