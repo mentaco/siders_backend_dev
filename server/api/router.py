@@ -18,6 +18,12 @@ def example_add_data_route():
 def example_del_data_route():
     return example_del_data()
 
+@module_router.route('/follow_data', methods=['GET'])
+def get_user_relation_router():
+    user_id_from = request.args.get('user_id_from')
+    user_id_to = request.args.get('user_id_to')
+    return get_user_relation(user_id_from, user_id_to)
+
 @module_router.route('/follow_data', methods=['POST'])
 def follow_request_add_route():
     return follow_request_add()

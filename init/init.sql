@@ -13,29 +13,23 @@ CREATE SEQUENCE career_id_seq;
 CREATE SEQUENCE company_id_seq;
 CREATE SEQUENCE student_id_seq;
 CREATE SEQUENCE operator_id_seq;
-
-
 CREATE TABLE skill_t (
     skill_id INTEGER PRIMARY KEY DEFAULT nextval('skill_id_seq'),
     skill_name VARCHAR(48) UNIQUE NOT NULL,
     skill_icon VARCHAR(255) NOT NULL
 );
-
 CREATE TABLE message_status_t (
     message_status_code INTEGER PRIMARY KEY,
     message_status VARCHAR(15) UNIQUE NOT NULL
 );
-
 CREATE TABLE message_type_t (
     message_type_code INTEGER PRIMARY KEY,
     message_type VARCHAR(15) UNIQUE NOT NULL
 );
-
 CREATE TABLE relation_t (
     relation_code INTEGER PRIMARY KEY,
     relation_status VARCHAR(30) NOT NULL
 );
-
 CREATE TABLE company_info_t (
     company_id VARCHAR(8) PRIMARY KEY DEFAULT('C' || LPAD(nextval('company_id_seq')::text, 7, '0')),
     subscription_status BOOLEAN NOT NULL,
@@ -51,9 +45,7 @@ CREATE TABLE company_info_t (
     postalcode VARCHAR(8) NOT NULL,
     company_notice_status VARCHAR(4) NOT NULL
 );
-
 -- company_web,company_logomark,company_header_imageをサンプルデータのため、UNIQUE制約を一旦取り消し
-
 CREATE TABLE scout_t (
     scout_id INTEGER PRIMARY KEY DEFAULT nextval('scout_id_seq'),
     company_id VARCHAR(8) REFERENCES company_info_t(company_id),
@@ -61,22 +53,18 @@ CREATE TABLE scout_t (
     scout_end_at DATE NOT NULL,
     scout_body VARCHAR(3000) NOT NULL
 );
-
 CREATE TABLE employment_code_t (
     employment_code INTEGER PRIMARY KEY,
     employment_status VARCHAR(30) NOT NULL UNIQUE
 );
-
 CREATE TABLE job_code_t (
     job_code INTEGER PRIMARY KEY,
     job_name VARCHAR(75) NOT NULL UNIQUE
 );
-
 CREATE TABLE reward_t (
     reward_code INTEGER PRIMARY KEY,
-    reward_status VARCHAR(6) UNIQUE NOT NULL 
+    reward_status VARCHAR(6) UNIQUE NOT NULL
 );
-
 CREATE TABLE advertisement_t (
     ad_id INTEGER PRIMARY KEY DEFAULT nextval('ad_id_seq'),
     company_id VARCHAR(8) REFERENCES company_info_t(company_id),
@@ -90,12 +78,10 @@ CREATE TABLE advertisement_t (
     click_num INTEGER NOT NULL ,
     notice_operation VARCHAR(255)
 );
-
 CREATE TABLE advertisement_sex_code_t (
     ad_id INTEGER PRIMARY KEY REFERENCES advertisement_t(ad_id),
     sex_code VARCHAR(3) NOT NULL
 );
-
 CREATE TABLE article_t (
     article_id INTEGER PRIMARY KEY DEFAULT nextval('article_id_seq'),
     company_id VARCHAR(8) REFERENCES company_info_t(company_id),
@@ -113,9 +99,8 @@ CREATE TABLE article_t (
     tag_4 VARCHAR(60),
     tag_5 VARCHAR(60),
     article_summary VARCHAR(511),
-    hidden_flag BOOLEAN NOT NULL 
+    hidden_flag BOOLEAN NOT NULL
 );
-
 CREATE TABLE question_t (
     question_id INTEGER PRIMARY KEY DEFAULT nextval('question_id_seq'),
     company_id VARCHAR(8) REFERENCES company_info_t(company_id),
@@ -123,7 +108,6 @@ CREATE TABLE question_t (
     question VARCHAR(255),
     answer VARCHAR(511)
 );
-
 CREATE TABLE template_t (
     company_id VARCHAR(8) PRIMARY KEY REFERENCES company_info_t(company_id),
     template_1 VARCHAR(3000),
@@ -137,41 +121,34 @@ CREATE TABLE template_t (
     template_9 VARCHAR(3000),
     template_10 VARCHAR(3000)
 );
-
 CREATE TABLE report_code_t (
     report_code INTEGER PRIMARY KEY,
-    report VARCHAR(255) NOT NULL UNIQUE 
+    report VARCHAR(255) NOT NULL UNIQUE
 );
-
 CREATE TABLE del_reason_code_t (
     del_reason_code INTEGER PRIMARY KEY,
     del_reason VARCHAR(255) NOT NULL
 );
-	
 CREATE TABLE company_delete_request_t (
     company_id VARCHAR(8) PRIMARY KEY,
     del_reason_code INTEGER REFERENCES del_reason_code_t(del_reason_code)
 );
-
 CREATE TABLE operator_t (
     operator_id VARCHAR(8) PRIMARY KEY DEFAULT('O' || LPAD(nextval('operator_id_seq')::text, 7, '0')),
     operator_pass VARCHAR(32) NOT NULL,
-    active_operator_flag BOOLEAN NOT NULL 
-);	
-
+    active_operator_flag BOOLEAN NOT NULL
+);
 CREATE TABLE advertisement_approval_t (
     ad_id INTEGER PRIMARY KEY REFERENCES advertisement_t(ad_id),
     ad_approval_flag BOOLEAN,
     operator_id VARCHAR(8) REFERENCES operator_t(operator_id)
 );
-
 CREATE TABLE company_approval_t (
     company_id VARCHAR(8) PRIMARY KEY REFERENCES company_info_t(company_id),
     tel_num VARCHAR(11),
     company_name VARCHAR(90),
     company_approval_flag BOOLEAN
 );
-
 CREATE TABLE work_t (
     work_id INTEGER PRIMARY KEY DEFAULT nextval('work_id_seq'),
     company_id VARCHAR(8) REFERENCES company_info_t(company_id),
@@ -202,15 +179,12 @@ CREATE TABLE work_t (
     reward_flag BOOLEAN NOT NULL ,
     work_time_flag BOOLEAN NOT NULL ,
     transport_cost_flag BOOLEAN NOT NULL ,
-    sex_flag BOOLEAN NOT NULL 
+    sex_flag BOOLEAN NOT NULL
 );
-
 CREATE TABLE work_area_t (
     work_id INTEGER PRIMARY KEY REFERENCES work_t(work_id),
     area_code VARCHAR(100) NOT NULL
 );
-
-
 CREATE TABLE student_info_t (
     student_id VARCHAR(8) PRIMARY KEY DEFAULT('S' || LPAD(nextval('student_id_seq')::text, 7, '0')),
     mail_address VARCHAR(255) UNIQUE NOT NULL,
@@ -233,20 +207,18 @@ CREATE TABLE student_info_t (
     rating_point INTEGER,
     avg_portfolio REAL,
     student_card_flag BOOLEAN NOT NULL,
-    notice_status VARCHAR(4) NOT NULL
+    notice_status VARCHAR(4) NOT NULL,
+    student_interest VARCHAR(30)
 );
-
 CREATE TABLE student_approval_t (
     student_id VARCHAR(8) PRIMARY KEY,
     student_image VARCHAR(255) NOT NULL
 );
 -- student_imageをサンプルデータのため、UNIQUE制約を一旦取り消し
-
 CREATE TABLE advertisement_area_t (
     ad_id VARCHAR(8) PRIMARY KEY,
     area_code VARCHAR(100) NOT NULL
 );
-
 CREATE TABLE work_achivement_t (
     student_id VARCHAR(8) REFERENCES student_info_t(student_id),
     work_id INTEGER REFERENCES work_t(work_id),
@@ -255,21 +227,18 @@ CREATE TABLE work_achivement_t (
     manager_comment VARCHAR(255),
     PRIMARY KEY(student_id, work_id)
 );
-
 CREATE TABLE user_relation_t (
     user_id_from VARCHAR(8) REFERENCES student_info_t(student_id),
     user_id_to VARCHAR(8) REFERENCES student_info_t(student_id),
     relation_code INTEGER REFERENCES relation_t(relation_code),
     PRIMARY KEY(user_id_from, user_id_to)
 );
-
 CREATE TABLE student_scout_t (
     scout_user_id VARCHAR(8) REFERENCES student_info_t(student_id),
     scout_id INTEGER REFERENCES scout_t(scout_id),
     isAccepted BOOLEAN NOT NULL ,
     PRIMARY KEY(scout_user_id, scout_id)
 );
-
 CREATE TABLE timeline_t (
     post_id INTEGER PRIMARY KEY DEFAULT nextval('post_id_seq'),
     user_id VARCHAR(8) NOT NULL,
@@ -280,19 +249,16 @@ CREATE TABLE timeline_t (
     post_body VARCHAR(300) NOT NULL,
     hidden_status INTEGER NOT NULL
 );
-
 CREATE TABLE bookmarked_post_t(
     post_id INTEGER REFERENCES timeline_t(post_id),
     user_id VARCHAR(8) REFERENCES student_info_t(student_id),
-    PRIMARY KEY(post_id, user_id) 
+    PRIMARY KEY(post_id, user_id)
 );
-
 CREATE TABLE liked_post_t (
     post_id INTEGER REFERENCES timeline_t(post_id),
     user_id VARCHAR(8) REFERENCES student_info_t(student_id),
-    PRIMARY KEY(post_id, user_id) 
+    PRIMARY KEY(post_id, user_id)
 );
-
 CREATE TABLE message_t (
     message_id INTEGER PRIMARY KEY DEFAULT nextval('message_id_seq'),
     message_from VARCHAR(8) NOT NULL,
@@ -303,7 +269,6 @@ CREATE TABLE message_t (
     work_or_scout_id INTEGER,
     message_created_at TIMESTAMP NOT NULL
 );
-
 CREATE TABLE career_info_t (
     career_id INTEGER DEFAULT nextval('career_id_seq'),
     student_id VARCHAR(8) REFERENCES student_info_t(student_id),
@@ -316,18 +281,16 @@ CREATE TABLE career_info_t (
     carrer_type_code INTEGER NOT NULL,
     result_num INTEGER,
     carrer_image_1 VARCHAR(255),
-    carrer_image_2 VARCHAR(255), 
+    carrer_image_2 VARCHAR(255),
     carrer_image_3 VARCHAR(255),
     PRIMARY KEY(student_id, career_id)
 );
-
 CREATE TABLE student_skill_t (
     student_id VARCHAR(8) REFERENCES student_info_t(student_id),
     skill_id INTEGER REFERENCES skill_t(skill_id),
     skill_text VARCHAR(450) NOT NULL,
     PRIMARY KEY(student_id, skill_id)
 );
-
 CREATE TABLE report_users_t (
     report_id varchar(8) PRIMARY KEY DEFAULT nextval('report_id_seq'),
     student_id varchar(8) REFERENCES student_info_t(student_id),
