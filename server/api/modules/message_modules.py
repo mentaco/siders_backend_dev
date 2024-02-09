@@ -1,8 +1,10 @@
 from flask import jsonify, request
 from .execute_query import exec_query
 # データを取得する関数の例
-def get_message():
+def get_message(user_id):
     try:
+        params = (user_id,)*14
+        print(params)
         query = ("""
     SELECT
         m.message_id,
@@ -12,22 +14,22 @@ def get_message():
         m.message_status_code,
         m.message_created_at,
         CASE
-            WHEN m.message_from = 'S0000001' AND LEFT(m.message_to, 1) = 'S' THEN s_to_handle.handle_name
-            WHEN m.message_from = 'S0000001' AND LEFT(m.message_to, 1) = 'C' THEN c_to_info.company_name
-            WHEN LEFT(m.message_from, 1) = 'S' AND m.message_to = 'S0000001' THEN s_handle.handle_name
-            WHEN LEFT(m.message_from, 1) = 'C' AND m.message_to = 'S0000001' THEN c_info.company_name
+            WHEN m.message_from = %s AND LEFT(m.message_to, 1) = 'S' THEN s_to_handle.handle_name
+            WHEN m.message_from = %s  AND LEFT(m.message_to, 1) = 'C' THEN c_to_info.company_name
+            WHEN LEFT(m.message_from, 1) = 'S' AND m.message_to = %s THEN s_handle.handle_name
+            WHEN LEFT(m.message_from, 1) = 'C' AND m.message_to = %s THEN c_info.company_name
         END AS from_name,
         CASE
-            WHEN m.message_to = 'S0000001' AND LEFT(m.message_from, 1) = 'S' THEN s_handle.handle_name
-            WHEN m.message_to = 'S0000001' AND LEFT(m.message_from, 1) = 'C' THEN c_info.company_name
-            WHEN LEFT(m.message_to, 1) = 'S' AND m.message_from = 'S0000001' THEN s_to_handle.handle_name
-            WHEN LEFT(m.message_to, 1) = 'C' AND m.message_from = 'S0000001' THEN c_to_info.company_name
+            WHEN m.message_to = %s AND LEFT(m.message_from, 1) = 'S' THEN s_handle.handle_name
+            WHEN m.message_to = %s AND LEFT(m.message_from, 1) = 'C' THEN c_info.company_name
+            WHEN LEFT(m.message_to, 1) = 'S' AND m.message_from = %s THEN s_to_handle.handle_name
+            WHEN LEFT(m.message_to, 1) = 'C' AND m.message_from = %s THEN c_to_info.company_name
         END AS to_name,
         CASE
-            WHEN m.message_from = 'S0000001' AND LEFT(m.message_to, 1) = 'S' THEN s_to_handle.profile_image
-            WHEN m.message_from = 'S0000001' AND LEFT(m.message_to, 1) = 'C' THEN c_to_info.company_header_image
-            WHEN LEFT(m.message_from, 1) = 'S' AND m.message_to = 'S0000001' THEN s_handle.profile_image
-            WHEN LEFT(m.message_from, 1) = 'C' AND m.message_to = 'S0000001' THEN c_info.company_header_image
+            WHEN m.message_from = %s AND LEFT(m.message_to, 1) = 'S' THEN s_to_handle.profile_image
+            WHEN m.message_from = %s AND LEFT(m.message_to, 1) = 'C' THEN c_to_info.company_header_image
+            WHEN LEFT(m.message_from, 1) = 'S' AND m.message_to = %s THEN s_handle.profile_image
+            WHEN LEFT(m.message_from, 1) = 'C' AND m.message_to = %s THEN c_info.company_header_image
         END AS recipient_image
     FROM
         message_t m
@@ -40,9 +42,9 @@ def get_message():
     LEFT JOIN
         company_info_t c_to_info ON m.message_to = c_to_info.company_id
     WHERE
-        m.message_from = 'S0000001' OR m.message_to = 'S0000001'
-""")
-        result = exec_query(query)
+        m.message_from = %s OR m.message_to = %s
+                 """)
+        result = exec_query(query,params)
         return jsonify({'data': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
@@ -70,7 +72,3 @@ def add_message():
 #         skill_id = data.get('skill_id')
 #         params = (skill_id,)
 #         query = 'DELETE FROM skill_t WHERE skill_id = %s'
-#         result = exec_query(query, params, fetch_all=False)
-#         return jsonify({'message': 'Data deleted successfully'})
-#     except Exception as e:
-#         return jsonify({'error': str(e)}), 500
