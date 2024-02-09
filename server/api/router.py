@@ -38,4 +38,5 @@ def add_message_route():
 
 @module_router.route('/get_notice_data', methods=['GET'])
 def get_notice_data_route():
-    return get_notice_data()
+    arg1 = request.args.get('user_id')
+    return get_notice_data(arg1)
