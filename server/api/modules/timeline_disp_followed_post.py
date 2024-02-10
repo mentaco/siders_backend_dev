@@ -5,11 +5,11 @@ from datetime import datetime
 app = Flask(__name__)
 
 # フォローリストを取得する関数
-def get_user_relation(user_id_from):
+def get_follow_list(user_id_from):
     with app.app_context():
         try:
             params = (user_id_from,)
-            query = 'SELECT user_id_to FROM user_relation_t WHERE user_id_from = %s'
+            query = 'SELECT user_id_to FROM user_relation_t WHERE user_id_from = %s AND relation_code =0'
             result = exec_query(query, params, fetch_all=True)
 
             # RealDictRowを辞書に変換してリストに格納
@@ -20,7 +20,7 @@ def get_user_relation(user_id_from):
 
 
 # フォロー中のユーザの投稿を新しい順に取得する関数(初回呼び出し、上に引っ張って更新)
-def get_followed_users_post_new(follow_list, focus_time=None):
+def get_followed_users_post_new(students_list, focus_time=None):
 
     with app.app_context():
         try:
@@ -51,9 +51,9 @@ def get_followed_users_post_new(follow_list, focus_time=None):
 
             # クエリ実行
             if focus_time is not None:
-                result = exec_query(query, params=(follow_list, focus_time), fetch_all=True)
+                result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
             else:
-                result = exec_query(query, params=(follow_list,), fetch_all=True)
+                result = exec_query(query, params=(students_list,), fetch_all=True)
 
             # 結果を格納するリスト
             result_list = []
@@ -74,7 +74,7 @@ def get_followed_users_post_new(follow_list, focus_time=None):
             print({'error': str(e)})
 
 # 以前のユーザの投稿を取得する関数(下に引っ張って更新)
-def get_followed_users_post_old(follow_list, focus_time):
+def get_followed_users_post_old(students_list, focus_time):
 
     with app.app_context():
         try:
@@ -99,7 +99,7 @@ def get_followed_users_post_old(follow_list, focus_time):
             """
 
             # クエリ実行
-            result = exec_query(query, params=(follow_list, focus_time), fetch_all=True)
+            result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
 
             # 結果を格納するリスト
             result_list = []
@@ -120,19 +120,17 @@ def get_followed_users_post_old(follow_list, focus_time):
             print({'error': str(e)})
 
 
-
-
 # main処理
 def timeline_followed(user_id_from):
     with app.app_context():
-        follower_list = get_user_relation(user_id_from)
+        follow_list = get_follow_list(user_id_from)
         #print(follower_list)
 
         #年月日時分のフォーマットを揃える
         focus_time = datetime(2024,1,18,9,00)
         #a = get_followed_users_post_new(follower_list,focus_time)
         # a = get_followed_users_post_new(follower_list)
-        b = get_followed_users_post_old(follower_list,focus_time)
+        b = get_followed_users_post_old(follow_list,focus_time)
         print(b)
 
 
