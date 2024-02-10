@@ -37,3 +37,23 @@ def add_message_route():
 @module_router.route('/get_notice_data', methods=['GET'])
 def get_notice_data_route():
     return get_notice_data()
+
+@module_router.route('/get_student_id', methods=['GET'])
+def get_student_id():
+    email = request.args.get('mail_address')
+    return get_student_id(email)
+
+@module_router.route('/get_mypage_info', methods=['GET'])
+def get_mypage_info():
+    user_id = request.args.get('student_id')
+    return get_mypage_info(user_id)
+
+@module_router.route('/get_follow_info', methods=['GET'])
+def get_follow_info():
+    user_id = request.args.get('student_id')
+    return get_follow_info(user_id)
+
+@module_router.route('/get_follower_info')
+def get_follower_info():
+    user_id = request.args.get('student_id')
+    return get_follower_info(user_id)
