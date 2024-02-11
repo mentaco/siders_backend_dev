@@ -4,7 +4,6 @@ from .execute_query import exec_query
 def get_message(user_id):
     try:
         params = (user_id,)*14
-        print(params)
         query = ("""
     SELECT
         m.message_id,
