@@ -46,6 +46,7 @@ def add_message_route():
 def get_notice_data_route():
     arg1 = request.args.get('user_id')
     return get_notice_data(arg1)
+
 @module_router.route('/get_student_id', methods=['GET'])
 def get_student_id():
     email = request.args.get('mail_address')
@@ -65,3 +66,4 @@ def get_follow_info():
 def get_follower_info():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
+
