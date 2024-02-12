@@ -67,3 +67,7 @@ def get_follower_info():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
 
+@module_router.route('/search_user_get', methods=['GET'])
+def search_user_get_route():
+    text = request.args.get('search_text')
+    return search_user_get(text)
