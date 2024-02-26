@@ -49,12 +49,12 @@ def get_mypage_info():
     return get_mypage_info(user_id)
 
 @module_router.route('/get_follow_info', methods=['GET'])
-def get_follow_info():
+def get_follow_info_route():
     user_id = request.args.get('student_id')
     return get_follow_info(user_id)
 
 @module_router.route('/get_follower_info')
-def get_follower_info():
+def get_follower_info_route():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
 
