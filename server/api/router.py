@@ -58,14 +58,24 @@ def get_mypage_info():
     return get_mypage_info(user_id)
 
 @module_router.route('/get_follow_info', methods=['GET'])
-def get_follow_info():
+def get_follow_info_route():
     user_id = request.args.get('student_id')
     return get_follow_info(user_id)
 
 @module_router.route('/get_follower_info')
-def get_follower_info():
+def get_follower_info_route():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
+
+@module_router.route('/get_skill_info', methods=['GET'])
+def get_skill_info():
+    user_id = request.args.get('student_id')
+    return get_skill_info(user_id)
+
+@module_router.route('/get_career_info', methods=['GET'])
+def get_career_info():
+    user_id = request.args.get('student_id')
+    return get_career_info(user_id)
 
 @module_router.route('/search_user_get', methods=['GET'])
 def search_user_get_route():
