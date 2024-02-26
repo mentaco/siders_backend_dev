@@ -2,7 +2,8 @@ from flask import jsonify, request
 from .execute_query import exec_query
 
 # 通知を取得する関数
-def get_notice_data():
+def get_notice_data(user_id):
+    params = (user_id,)
     try:
         query = ("""
 SELECT
@@ -26,9 +27,9 @@ LEFT JOIN
 LEFT JOIN
   company_info_t c ON LEFT(m.message_from, 1) = 'C' AND m.message_from = c.company_id
 WHERE
-  m.message_to = 'S0000001'
+  m.message_to = %s
                  """)
-        result = exec_query(query)
+        result = exec_query(query,params)
         return jsonify({'data': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500

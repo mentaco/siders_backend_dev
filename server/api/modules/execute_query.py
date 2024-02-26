@@ -2,11 +2,12 @@ from typing import Optional, Union, List, Tuple, Dict
 from psycopg2 import extras
 from ..database import db_pool
 
+
 '''
 データベースにクエリを送る関数
 query: SQL文
 params: SQL文に含めるパラメータ(タプル or 辞書)
-fetch_all: クエリの結果を返すかどうか
+fetch_all: クエリの結果を返すかどうか（デフォルト：True）
 '''
 def exec_query(
         query: str,

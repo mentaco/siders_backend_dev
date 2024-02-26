@@ -18,6 +18,12 @@ def example_add_data_route():
 def example_del_data_route():
     return example_del_data()
 
+@module_router.route('/follow_data', methods=['GET'])
+def get_user_relation_router():
+    user_id_from = request.args.get('user_id_from')
+    user_id_to = request.args.get('user_id_to')
+    return get_user_relation(user_id_from, user_id_to)
+
 @module_router.route('/follow_data', methods=['POST'])
 def follow_request_add_route():
     return follow_request_add()
@@ -28,7 +34,9 @@ def user_relation_del_route():
 
 @module_router.route('/get_message', methods=['GET'])
 def get_message_route():
-    return get_message()
+    arg1 = request.args.get('user_id')
+    print(arg1)
+    return get_message(arg1)
 
 @module_router.route('/add_message', methods=['POST'])
 def add_message_route():
@@ -36,7 +44,8 @@ def add_message_route():
 
 @module_router.route('/get_notice_data', methods=['GET'])
 def get_notice_data_route():
-    return get_notice_data()
+    arg1 = request.args.get('user_id')
+    return get_notice_data(arg1)
 
 @module_router.route('/get_student_id', methods=['GET'])
 def get_student_id():
@@ -67,3 +76,8 @@ def get_skill_info():
 def get_career_info():
     user_id = request.args.get('student_id')
     return get_career_info(user_id)
+
+@module_router.route('/search_user_get', methods=['GET'])
+def search_user_get_route():
+    text = request.args.get('search_text')
+    return search_user_get(text)

@@ -4,3 +4,4 @@ from .message_modules import *
 from .notice_modules import *
 from .get_follow_info import *
 from .get_follower_info import *
+from .search_user_modules import *
