@@ -1,7 +1,7 @@
-from flask import jsonify, request
+from flask import jsonify
 from .execute_query import exec_query
 
-def get_student_career_info(student_id):
+def get_career_info(student_id):
     try:
         query = """
             SELECT career_id, affiliation_id, career_title, career_detail, career_start_at, career_end_at,
