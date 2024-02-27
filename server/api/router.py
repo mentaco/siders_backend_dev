@@ -48,12 +48,12 @@ def get_notice_data_route():
     return get_notice_data(arg1)
 
 @module_router.route('/get_student_id', methods=['GET'])
-def get_student_id():
+def get_student_id_route():
     email = request.args.get('mail_address')
     return get_student_id(email)
 
 @module_router.route('/get_mypage_info', methods=['GET'])
-def get_mypage_info():
+def get_mypage_info_route():
     user_id = request.args.get('student_id')
     return get_mypage_info(user_id)
 
@@ -68,12 +68,12 @@ def get_follower_info_route():
     return get_follower_info(user_id)
 
 @module_router.route('/get_skill_info', methods=['GET'])
-def get_skill_info():
+def get_skill_info_route():
     user_id = request.args.get('student_id')
     return get_skill_info(user_id)
 
 @module_router.route('/get_career_info', methods=['GET'])
-def get_career_info():
+def get_career_info_route():
     user_id = request.args.get('student_id')
     return get_career_info(user_id)
 
