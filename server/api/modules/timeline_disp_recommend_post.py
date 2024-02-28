@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 #生徒の興味のある職を表す文字列を要素ごとに分割する関数
-def divide_student_interest(input_strings):
+def divide_student_interests(input_strings):
     divided_list = []
 
     for i in range(0, len(input_strings) - 2, 3):
@@ -19,7 +19,7 @@ def divide_student_interest(input_strings):
 
 
 #自分の興味のある項目を取得する関数
-def get_my_interest(student_id):
+def get_my_interests(student_id):
 
     with app.app_context():
         try:
@@ -34,7 +34,7 @@ def get_my_interest(student_id):
                 my_interest = ''
 
             #興味のある業種列を要素分解
-            my_interest = divide_student_interest(my_interest)
+            my_interest = divide_student_interests(my_interest)
 
             return my_interest
         
@@ -78,7 +78,7 @@ def get_students_having_same_interest(my_interests, my_student_id):
 
 # このスクリプトが直接実行された場合のみ、Flaskアプリケーションを起動する
 if __name__ == "__main__":
-    a = get_my_interest("S0000001")
+    a = get_my_interests("S0000001")
 
     b = get_students_having_same_interest(a,"S0000001")
 
