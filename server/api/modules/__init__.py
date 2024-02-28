@@ -2,5 +2,12 @@ from .example_modules import *
 from .follow import *
 from .message_modules import *
 from .notice_modules import *
+from .get_follow_info import *
+from .get_follower_info import *
+from .search_user_modules import *
+from .get_user_id import *
+from .get_mypage_info import *
+from .get_skill_info import *
+from .get_career_info import *
 from .timeline_disp_followed_post import *
 from .timeline_disp_recommend_post import *
