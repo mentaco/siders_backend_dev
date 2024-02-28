@@ -78,7 +78,6 @@ def get_followed_users_post_old(students_list, focus_time):
 
     with app.app_context():
         try:
-            # クエリの基本部分
             query = """
             SELECT 
                 si.student_id,

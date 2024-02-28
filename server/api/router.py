@@ -48,36 +48,51 @@ def get_notice_data_route():
     return get_notice_data(arg1)
 
 @module_router.route('/get_student_id', methods=['GET'])
-def get_student_id_route():
+def get_student_id():
     email = request.args.get('mail_address')
     return get_student_id(email)
 
 @module_router.route('/get_mypage_info', methods=['GET'])
-def get_mypage_info_route():
+def get_mypage_info():
     user_id = request.args.get('student_id')
     return get_mypage_info(user_id)
 
 @module_router.route('/get_follow_info', methods=['GET'])
-def get_follow_info_route():
+def get_follow_info():
     user_id = request.args.get('student_id')
     return get_follow_info(user_id)
 
 @module_router.route('/get_follower_info')
-def get_follower_info_route():
+def get_follower_info():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
 
-@module_router.route('/get_skill_info', methods=['GET'])
-def get_skill_info_route():
-    user_id = request.args.get('student_id')
-    return get_skill_info(user_id)
+@module_router.route('/get_followed_new_posts', methods=['GET'])
+def get_followed_users_post_new_route():
+    students_list = request.args.get('students_list')
+    focus_time = request.args.get('focus_time')
+    return get_followed_users_post_new(students_list,focus_time)
 
-@module_router.route('/get_career_info', methods=['GET'])
-def get_career_info_route():
-    user_id = request.args.get('student_id')
-    return get_career_info(user_id)
+@module_router.route('/get_followed_old_posts', methods=['GET'])
+def get_followed_users_post_old_route():
+    students_list = request.args.get('students_list')
+    focus_time = request.args.get('focus_time')
+    return get_followed_users_post_old(students_list,focus_time)
 
-@module_router.route('/search_user_get', methods=['GET'])
-def search_user_get_route():
-    text = request.args.get('search_text')
-    return search_user_get(text)
+@module_router.route('/get_follow_list', methods=['GET'])
+def get_follow_list_route():
+    student_id = request.args.get('student_id')
+    return get_follow_list(student_id)
+
+@module_router.route('/get_my_interests', methods=['GET'])
+def get_my_interests_route():
+    student_id = request.args.get('student_id')
+    return get_my_interests(student_id)
+
+@module_router.route('/get_students_having_same_interest', methods=['GET'])
+def get_students_having_same_interest_route():
+    my_interests = request.args.get('my_interests')
+    my_student_id = request.args.get('my_student_id')
+    return get_students_having_same_interest(my_interests, my_student_id)
+
+
