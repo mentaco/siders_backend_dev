@@ -993,7 +993,7 @@ INSERT INTO message_t (message_from, message_to, message_type_code, message_body
 ('S0000001', 'C0000001', 0, '興味を持っていただけて嬉しいです。', 1, NULL, '2023-01-13 16:00:00'), 
 ('C0000001', 'S0000001', 0, 'ではよろしくお願いいたします', 0, NULL, '2023-01-13 16:30:00');
 
-INSERT INTO career_info_t (student_id,affiliation_id,career_title, career_detail, career_start_at, career_end_at, publication_status,carrer_type_code,result_num,carrer_image_1, carrer_image_2, carrer_image_3)
+INSERT INTO career_info_t (student_id,affiliation_id,career_title, career_detail, career_start_at, career_end_at, publication_status,career_type_code,result_num,career_image_1, career_image_2, career_image_3)
 VALUES
 ('S0000001',1,'宮崎大学', '工学部工学科　情報通信工学プログラム', '2018-04-10', '2022-03-09',0,0,NULL,NULL,NULL,NULL),
 ('S0000001',1,'新暗号化方式の発明', 'ChatGPTを駆使して、新たな暗号化アルゴリズムを発明しました。新たな暗号アルゴリズム「桜花暗号（SakuraCipher）」は、日本の美しい自然と文化をインスパイアした革新的な手法を採用しています。このアルゴリズムは、文字や数字だけでなく、桜の花弁のように優雅で複雑なパターンを生成し、暗号化の強度を高めることが特徴です。 SakuraCipherの基本原則は、桜の花が咲く様子に見立てた「花序列変換」です。これにより、平文が美しい花のように変換され、暗号文は複雑で予測困難な形状となります。更に、独自の「季節鍵交換」メソッドにより、暗号鍵が季節のように変化し、セキュリティを向上させています。', '2021-04-10', '2025-03-09',1,0,NULL,NULL,NULL,NULL),

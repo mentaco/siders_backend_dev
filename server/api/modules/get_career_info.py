@@ -5,7 +5,7 @@ def get_career_info(student_id):
     try:
         query = """
             SELECT career_id, affiliation_id, career_title, career_detail, career_start_at, career_end_at,
-                publication_status, carrer_type_code, result_num, carrer_image_1, carrer_image_2, carrer_image_3
+                publication_status, career_type_code, result_num, career_image_1, career_image_2, career_image_3
             FROM career_info_t
             WHERE student_id = %s
         """
