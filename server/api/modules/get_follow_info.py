@@ -2,7 +2,7 @@ from flask import jsonify, request
 from .execute_query import exec_query
 
 #フォローリストを取得する関数
-def get_user_relation(user_id):
+def get_follow_info(user_id):
     try:
         query = "SELECT user_id_to, relation_code FROM user_relation_t WHERE user_id_from = %s AND relation_code = 0"
         params = (user_id,)
