@@ -277,11 +277,11 @@ CREATE TABLE career_info_t (
     career_start_at DATE NOT NULL,
     career_end_at DATE NOT NULL,
     publication_status INTEGER NOT NULL,
-    carrer_type_code INTEGER NOT NULL,
+    career_type_code INTEGER NOT NULL,
     result_num INTEGER,
-    carrer_image_1 VARCHAR(255),
-    carrer_image_2 VARCHAR(255),
-    carrer_image_3 VARCHAR(255),
+    career_image_1 VARCHAR(255),
+    career_image_2 VARCHAR(255),
+    career_image_3 VARCHAR(255),
     PRIMARY KEY(student_id, career_id)
 );
 CREATE TABLE student_skill_t (
