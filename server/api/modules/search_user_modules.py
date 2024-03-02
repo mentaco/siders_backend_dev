@@ -2,7 +2,7 @@ from flask import jsonify, request
 from .execute_query import exec_query
 
 # データを取得する関数の例
-def search_user_get(search_text):
+def get_search_user(search_text):
     try:
         params = ('%' + search_text + '%', '%' + search_text + '%')
         query = """
