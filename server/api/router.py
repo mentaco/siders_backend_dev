@@ -105,7 +105,16 @@ def get_career_info_route():
     user_id = request.args.get('student_id')
     return get_career_info(user_id)
 
-@module_router.route('/search_user_get', methods=['GET'])
-def search_user_get_route():
+@module_router.route('/get_search_user', methods=['GET'])
+def get_search_user_route():
     text = request.args.get('search_text')
-    return search_user_get(text)
+    return get_search_user(text)
+
+@module_router.route('/get_student_interest', methods=['GET'])
+def get_student_interest_route():
+    user_id = request.args.get('user_id')
+    return get_student_interest(user_id)
+
+@module_router.route('/add_student_interest', methods=['POST'])
+def add_student_interest_route():
+    return add_stundent_interest()
