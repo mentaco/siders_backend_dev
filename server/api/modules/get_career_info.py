@@ -1,3 +1,4 @@
+import re
 from flask import jsonify
 from .execute_query import exec_query
 
@@ -12,6 +13,11 @@ def get_career_info(student_id):
         params = (student_id,)
 
         result = exec_query(query, params)
+
+        # 日付の表示形式を YYYY-MM-DD にする
+        for content in result:
+            content['career_start_at'] = content['career_start_at'].strftime('%Y-%m-%d')
+            content['career_end_at'] = content['career_end_at'].strftime('%Y-%m-%d')
 
         if result:
             return jsonify(result)
