@@ -83,3 +83,20 @@ def add_skill_info():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
+# 学生の特技を削除
+def del_skill_info():
+    try:
+        data = request.get_json()
+        student_id = data.get('student_id')
+        skill_id = data.get('skill_id')
+
+        params = (student_id, skill_id)
+        query = "DELETE FROM student_skill_t WHERE student_id = %s AND skill_id = %s"
+
+        exec_query(query, params, fetch_all=False)
+
+        return jsonify({'message': 'Data deleted successfully'})
+
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
