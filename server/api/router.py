@@ -67,10 +67,22 @@ def get_follower_info_route():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
 
-@module_router.route('/get_skill_info', methods=['GET'])
+@module_router.route('/skill_info', methods=['GET'])
 def get_skill_info_route():
     user_id = request.args.get('student_id')
     return get_skill_info(user_id)
+
+@module_router.route('/skill_info', methods=['POST'])
+def add_skill_info_route():
+    return add_skill_info()
+
+@module_router.route('/skill_info', methods=['DELETE'])
+def del_skill_info_route():
+    return del_skill_info()
+
+@module_router.route('/skill_info', methods=['PUT'])
+def update_skill_info_route():
+    return update_skill_info()
 
 @module_router.route('/get_followed_new_posts', methods=['GET'])
 def get_followed_users_post_new_route():
