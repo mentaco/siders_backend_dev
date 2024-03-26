@@ -62,7 +62,7 @@ def get_follow_info_route():
     user_id = request.args.get('student_id')
     return get_follow_info(user_id)
 
-@module_router.route('/get_follower_info')
+@module_router.route('/get_follower_info', methods=['GET'])
 def get_follower_info_route():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
