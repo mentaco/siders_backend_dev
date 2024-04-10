@@ -6,7 +6,7 @@ from .get_follow_info import *
 from .get_follower_info import *
 from .search_user_modules import *
 from .get_user_id import *
-from .get_mypage_info import *
+from .profile_info import *
 from .skill_info import *
 from .get_career_info import *
 from .timeline_disp_followed_post import *

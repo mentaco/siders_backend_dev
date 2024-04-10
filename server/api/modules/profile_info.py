@@ -2,7 +2,7 @@ from flask import jsonify, request
 from .execute_query import exec_query
 
 # マイページの情報取得
-def get_mypage_info(user_id):
+def get_profile_info(mail_address):
     try:
         query = """
             SELECT handle_name, faculty, header_image, profile_image, motto, 
@@ -11,13 +11,14 @@ def get_mypage_info(user_id):
             WHERE mail_address = %s
         """
 
-        params = (user_id,)
+        params = (mail_address,)
 
         result = exec_query(query, params)
+        print(result)
 
         if result:
-            student_info = result[0]
-            return jsonify(student_info)
+            profile = result[0]
+            return jsonify(profile)
         else:
             return jsonify({'error': 'User not found'}), 404
     
