@@ -7,6 +7,7 @@ def get_user_relation(user_id_from,user_id_to):
         params = (user_id_from, user_id_to)
         query = 'SELECT relation_code FROM user_relation_t WHERE user_id_from = %s AND user_id_to = %s'
         result = exec_query(query, params, fetch_all=True)
+        print(params)
         return jsonify({'data': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
