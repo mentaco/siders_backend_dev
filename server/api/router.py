@@ -130,3 +130,8 @@ def get_student_interest_route():
 @module_router.route('/add_student_interest', methods=['POST'])
 def add_student_interest_route():
     return add_stundent_interest()
+
+@module_router.route('/get_like_count', methods=['GET'])
+def get_like_count_route():
+    post_id = request.args.get('post_id')
+    return get_like_count(post_id)
