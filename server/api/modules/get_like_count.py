@@ -6,7 +6,7 @@ def get_like_count(post_id):
     post_id = int(post_id)
     try:
         params = (post_id,)
-        query = 'SELECT COUNT(*) FROM liked_post_t WHERE post_id = 1'
+        query = 'SELECT COUNT(*) FROM liked_post_t WHERE post_id = %s'
         result = exec_query(query, params, fetch_all=True)
         return jsonify({'data':result[0]['count']})
 
