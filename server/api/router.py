@@ -135,3 +135,9 @@ def add_student_interest_route():
 def get_like_count_route():
     post_id = request.args.get('post_id')
     return get_like_count(post_id)
+
+@module_router.route('/get_bookmark_status', methods=['GET'])
+def get_bookmark_status_route():
+    user_id = request.args.get('user_id')
+    post_id = request.args.get('post_id')
+    return get_bookmark_status(user_id, post_id)

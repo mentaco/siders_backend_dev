@@ -13,3 +13,4 @@ from .timeline_disp_followed_post import *
 from .timeline_disp_recommend_post import *
 from .user_interest import *
 from .get_like_count import*
+from .get_bookmark_status import *
