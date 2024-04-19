@@ -951,7 +951,13 @@ INSERT INTO bookmarked_post_t (post_id, user_id) VALUES
 (7, 'S0000001'),
 (8, 'S0000001'),
 (9, 'S0000001'),
-(10, 'S0000001');
+(10, 'S0000001'),
+(33, 'S0000001'),
+(33, 'S0000002'),
+(33, 'S0000003'),
+(32, 'S0000001'),
+(32, 'S0000002'),
+(34, 'S0000001');
 
 INSERT INTO liked_post_t (post_id, user_id)
 VALUES
