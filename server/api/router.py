@@ -147,3 +147,11 @@ def get_like_status_route():
     user_id = request.args.get('user_id')
     post_id = request.args.get('post_id')
     return get_like_status(user_id, post_id)
+
+@module_router.route('/post_liked_user_info', methods=['POST'])
+def add_liked_user_route():
+    return add_liked_user()
+
+@module_router.route('/post_liked_user_info', methods=['DELETE'])
+def del_liked_user_route():
+    return del_liked_user()
