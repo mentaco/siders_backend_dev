@@ -155,3 +155,11 @@ def add_liked_user_route():
 @module_router.route('/post_liked_user_info', methods=['DELETE'])
 def del_liked_user_route():
     return del_liked_user()
+
+@module_router.route('/post_bookmarked_user_info', methods=['POST'])
+def add_bookmarked_user_route():
+    return add_bookmarked_user()
+
+@module_router.route('/post_bookmarked_user_info', methods=['DELETE'])
+def del_bookmarked_user_route():
+    return del_bookmarked_user()

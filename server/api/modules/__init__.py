@@ -16,3 +16,4 @@ from .get_like_count import*
 from .get_bookmark_status import *
 from .get_like_status import *
 from .post_liked_user_info import *
+from .post_bookmarked_user_info import *
