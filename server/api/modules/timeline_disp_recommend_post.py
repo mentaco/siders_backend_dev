@@ -1,7 +1,6 @@
 from flask import Flask
 from .execute_query import exec_query
-from flask import jsonify, request
-from datetime import datetime
+from flask import jsonify
 from .timeline_disp_followed_post import get_follow_list, get_followed_users_post_old, get_followed_users_post_new
 import json
 
@@ -48,17 +47,10 @@ def get_students_having_same_interest(my_interests, my_student_id):
             # 興味が被っている学生のstudent_idを格納するセット
             same_interest_students = set()
 
-            print("---------------")
-            print(my_interests)
-
             my_interests = divide_student_interests(my_interests)
-
-            print("===============")
-            print(my_interests)
 
             # 各興味について、興味が被っている学生を検索する
             for interest in my_interests:
-                print(interest)
                 query = """
                     SELECT DISTINCT si.student_id 
                     FROM student_info_t si 
@@ -99,16 +91,4 @@ def get_students_having_same_interest(my_interests, my_student_id):
 
         except Exception as e:
             return jsonify({'error': str(e)}), 500
-
-        
-
-# このスクリプトが直接実行された場合のみ、Flaskアプリケーションを起動する
-if __name__ == "__main__":
-    a = get_my_interests("S0000001")
-
-    b = get_students_having_same_interest(a,"S0000001")
-
-    c = get_followed_users_post_new()
-
-    d = get_followed_users_post_old()
 

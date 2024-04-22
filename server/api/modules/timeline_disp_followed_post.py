@@ -1,7 +1,6 @@
 from flask import Flask
-from flask import jsonify, request
+from flask import jsonify
 from .execute_query import exec_query
-from datetime import datetime
 
 app = Flask(__name__)
 
@@ -88,11 +87,7 @@ def get_followed_users_post_new(students_list, focus_time=None):
 # 以前のユーザの投稿を取得する関数(下に引っ張って更新)
 def get_followed_users_post_old(students_list, focus_time):
 
-    print("######################",students_list)
-
     students_list = divide_students_list(students_list)
-
-    print("######################",students_list)
 
     with app.app_context():
         try:
@@ -119,18 +114,12 @@ def get_followed_users_post_old(students_list, focus_time):
             # クエリ実行
             result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
 
-            print("$$$$$$$$$$$$$$$$$",result)
-            print("&&&&&&&&&&",focus_time)
-            
             # 結果を格納するリスト
             result_list = []
 
             for row in result:  
                 # 辞書から値のみを含むリストに変換して追加
                 result_list.append(list(row.values()))
-                # 一要素ごとに改行して表示
-                print(result_list[-1])
-                print()
 
             # 最後の要素のtimeline_created_atを返す。これをプロバイダに保持させておく。
             last_timeline_created_at = result_list[-1][3]  # 3はtimeline_created_atのインデックス
@@ -140,22 +129,3 @@ def get_followed_users_post_old(students_list, focus_time):
         except Exception as e:
             return jsonify({'error': str(e)})
         
-
-# main処理
-def timeline_followed(user_id_from):
-    with app.app_context():
-        follow_list = get_follow_list(user_id_from)
-        #print(follower_list)
-
-        #年月日時分のフォーマットを揃える
-        focus_time = datetime(2024,1,18,9,00)
-        #a = get_followed_users_post_new(follower_list,focus_time)
-        # a = get_followed_users_post_new(follower_list)
-        b = get_followed_users_post_old(follow_list,focus_time)
-        print(b)
-
-
-
-# このスクリプトが直接実行された場合のみ、Flaskアプリケーションを起動する
-if __name__ == "__main__":
-    timeline_followed("S0000001")
