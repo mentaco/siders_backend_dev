@@ -120,7 +120,8 @@ def get_career_info_route():
 @module_router.route('/get_search_user', methods=['GET'])
 def get_search_user_route():
     text = request.args.get('search_text')
-    return get_search_user(text)
+    my_student_id = request.args.get('my_student_id')
+    return get_search_user(text,my_student_id)
 
 @module_router.route('/get_student_interest', methods=['GET'])
 def get_student_interest_route():

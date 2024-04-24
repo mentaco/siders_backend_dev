@@ -10,7 +10,7 @@ def get_message(user_id):
         m.message_from,
         m.message_to,
         m.message_body,
-        m.message_status_code,
+        m.message_type_code,
         m.message_created_at,
         CASE
             WHEN m.message_from = %s AND LEFT(m.message_to, 1) = 'S' THEN s_to_handle.handle_name
