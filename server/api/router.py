@@ -163,3 +163,9 @@ def add_bookmarked_user_route():
 @module_router.route('/post_bookmarked_user_info', methods=['DELETE'])
 def del_bookmarked_user_route():
     return del_bookmarked_user()
+
+@module_router.route('/get_timeline_comment', methods=['GET'])
+def get_timeline_comment_route():
+    post_id = request.args.get('post_id')
+    focus_time = request.args.get('focus_time')
+    return get_timeline_comment(post_id, focus_time)

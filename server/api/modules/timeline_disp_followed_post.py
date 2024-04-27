@@ -49,7 +49,7 @@ def get_followed_users_post_new(students_list, focus_time=None):
             JOIN 
                 timeline_t tt ON si.student_id = tt.user_id
             WHERE 
-                tt.reply_to IS NULL
+                tt.reply_post_id IS NULL
                 AND tt.hidden_status = 0
                 AND si.student_id = ANY (%s)
             """
@@ -104,7 +104,7 @@ def get_followed_users_post_old(students_list, focus_time):
             JOIN 
                 timeline_t tt ON si.student_id = tt.user_id
             WHERE 
-                tt.reply_to IS NULL
+                tt.reply_post_id IS NULL
                 AND tt.hidden_status = 0
                 AND si.student_id = ANY (%s)
                 AND tt.timeline_created_at < %s

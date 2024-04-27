@@ -244,7 +244,6 @@ CREATE TABLE timeline_t (
     impression_num INTEGER NOT NULL,
     timeline_created_at TIMESTAMP NOT NULL,
     reply_post_id INTEGER,
-    reply_to VARCHAR(36),
     post_body VARCHAR(300) NOT NULL,
     hidden_status INTEGER NOT NULL
 );
