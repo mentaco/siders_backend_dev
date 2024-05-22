@@ -52,10 +52,14 @@ def get_student_id_route():
     email = request.args.get('mail_address')
     return get_student_id(email)
 
-@module_router.route('/get_mypage_info', methods=['GET'])
-def get_mypage_info_route():
-    user_id = request.args.get('student_id')
-    return get_mypage_info(user_id)
+@module_router.route('/student_profile', methods=['GET'])
+def get_student_profile_route():
+    student_id = request.args.get('student_id')
+    return get_student_profile(student_id)
+
+@module_router.route('/student_profile', methods=['PUT'])
+def update_student_profile_route():
+    return update_student_profile()
 
 @module_router.route('/get_follow_info', methods=['GET'])
 def get_follow_info_route():
