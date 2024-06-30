@@ -81,3 +81,7 @@ def get_career_info():
 def search_user_get_route():
     text = request.args.get('search_text')
     return search_user_get(text)
+
+@module_router.route('/add_student', methods=['POST'])
+def add_student():
+    return add_student()
