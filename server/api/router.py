@@ -126,6 +126,10 @@ def get_search_user_route():
     text = request.args.get('search_text')
     return get_search_user(text)
 
+@module_router.route('/add_student', methods=['POST'])
+def add_student():
+    return add_student()    
+
 @module_router.route('/get_student_interest', methods=['GET'])
 def get_student_interest_route():
     user_id = request.args.get('user_id')
@@ -173,3 +177,7 @@ def get_timeline_comment_route():
     post_id = request.args.get('post_id')
     focus_time = request.args.get('focus_time')
     return get_timeline_comment(post_id, focus_time)
+
+@module_router.route('/add_user_info', methods=['POST'])
+def add_user_info():
+    return add_user_info()
