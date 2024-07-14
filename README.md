@@ -1,4 +1,5 @@
 # siders_backend_dev
+[siders-jp](https://github.com/remon-nomer66/siders-jp)のサーバプログラムです。\
 API開発のための開発環境の土台として使ってください。\
 APIの開発はDockerのデータベースと接続して行う感じでお願いします。\
 ある程度開発が進んだら、本番環境にデプロイしていこうと思います。
@@ -56,7 +57,7 @@ rm -rf data/*
 ```
 pip3 install virtualenv
 ```
-次に、Pythonの仮想環境を作成します。\
+次に、Pythonの仮想環境を作成します。
 ```
 cd server
 python3 -m virtualenv siders-server

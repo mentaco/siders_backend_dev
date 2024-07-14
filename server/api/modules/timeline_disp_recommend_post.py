@@ -1,13 +1,14 @@
 from flask import Flask
 from .execute_query import exec_query
-from datetime import datetime
+from flask import jsonify
 from .timeline_disp_followed_post import get_follow_list, get_followed_users_post_old, get_followed_users_post_new
+import json
 
 app = Flask(__name__)
 
 
 #生徒の興味のある職を表す文字列を要素ごとに分割する関数
-def divide_student_interest(input_strings):
+def divide_student_interests(input_strings):
     divided_list = []
 
     for i in range(0, len(input_strings) - 2, 3):
@@ -19,27 +20,24 @@ def divide_student_interest(input_strings):
 
 
 #自分の興味のある項目を取得する関数
-def get_my_interest(student_id):
-
+def get_my_interests(student_id):
     with app.app_context():
         try:
             params = (student_id,)
             query = 'SELECT student_interest FROM student_info_t WHERE student_id = %s'
             result = exec_query(query, params, fetch_all=True)
 
-            # RealDictRowを辞書に変換してリストに格納
             if result:
                 my_interest = result[0]['student_interest']
             else:
                 my_interest = ''
 
-            #興味のある業種列を要素分解
-            my_interest = divide_student_interest(my_interest)
 
-            return my_interest
-        
+            return jsonify({'data': my_interest})  # データをJSON形式で返す
+
         except Exception as e:
-            return {'error': str(e)}, 500
+            return jsonify({'error': str(e)}), 500
+
         
 
 #自分がフォローしている学生をのぞいた、興味が被っている学生を取得する関数
@@ -49,10 +47,20 @@ def get_students_having_same_interest(my_interests, my_student_id):
             # 興味が被っている学生のstudent_idを格納するセット
             same_interest_students = set()
 
+            my_interests = divide_student_interests(my_interests)
+
             # 各興味について、興味が被っている学生を検索する
             for interest in my_interests:
-                query = "SELECT DISTINCT student_id FROM student_info_t WHERE student_interest LIKE %s"
-                params = ('%' + interest + '%',)  # 部分一致のために%を付ける
+                query = """
+                    SELECT DISTINCT si.student_id 
+                    FROM student_info_t si 
+                    JOIN user_relation_t ur ON si.student_id = ur.user_id_to 
+                    WHERE  ur.user_id_from = %s
+                    AND relation_code != 2
+                    AND student_interest LIKE %s
+                """
+   
+                params = (my_student_id,'%' + interest + '%',)  # 部分一致のために%を付ける
                 result = exec_query(query, params, fetch_all=True)
 
                 # 検索結果からstudent_idをセットに追加
@@ -64,25 +72,23 @@ def get_students_having_same_interest(my_interests, my_student_id):
             # student_idの降順に並び替え
             same_interest_students_list = sorted(list(same_interest_students))
 
+            #print(same_interest_students_list)
+
             # 自分のフォローしているユーザのリストを取得
-            my_followed_students = get_follow_list(my_student_id)
+            res = get_follow_list(my_student_id).data
+
+            res_data = json.loads(res)
+
+            my_followed_students = res_data['data']
+
+            #print(my_followed_students)
 
             # my_followed_studentsに含まれる要素をsorted_studentsから削除
             same_interest_students_list = [student_id for student_id in same_interest_students_list if student_id not in my_followed_students]
 
-            return same_interest_students_list
-
-        except Exception as e:
-            print({'error': str(e)})
+            return jsonify({'data': same_interest_students_list})
         
 
-# このスクリプトが直接実行された場合のみ、Flaskアプリケーションを起動する
-if __name__ == "__main__":
-    a = get_my_interest("S0000001")
-
-    b = get_students_having_same_interest(a,"S0000001")
-
-    c = get_followed_users_post_new()
-
-    d = get_followed_users_post_old()
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
 

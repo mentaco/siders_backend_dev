@@ -48,40 +48,132 @@ def get_notice_data_route():
     return get_notice_data(arg1)
 
 @module_router.route('/get_student_id', methods=['GET'])
-def get_student_id():
+def get_student_id_route():
     email = request.args.get('mail_address')
     return get_student_id(email)
 
-@module_router.route('/get_mypage_info', methods=['GET'])
-def get_mypage_info():
-    user_id = request.args.get('student_id')
-    return get_mypage_info(user_id)
+@module_router.route('/student_profile', methods=['GET'])
+def get_student_profile_route():
+    student_id = request.args.get('student_id')
+    return get_student_profile(student_id)
+
+@module_router.route('/student_profile', methods=['PUT'])
+def update_student_profile_route():
+    return update_student_profile()
 
 @module_router.route('/get_follow_info', methods=['GET'])
 def get_follow_info_route():
     user_id = request.args.get('student_id')
     return get_follow_info(user_id)
 
-@module_router.route('/get_follower_info')
+@module_router.route('/get_follower_info', methods=['GET'])
 def get_follower_info_route():
     user_id = request.args.get('student_id')
     return get_follower_info(user_id)
 
-@module_router.route('/get_skill_info', methods=['GET'])
-def get_skill_info():
+@module_router.route('/skill_info', methods=['GET'])
+def get_skill_info_route():
     user_id = request.args.get('student_id')
     return get_skill_info(user_id)
 
+@module_router.route('/skill_info', methods=['POST'])
+def add_skill_info_route():
+    return add_skill_info()
+
+@module_router.route('/skill_info', methods=['DELETE'])
+def del_skill_info_route():
+    return del_skill_info()
+
+@module_router.route('/skill_info', methods=['PUT'])
+def update_skill_info_route():
+    return update_skill_info()
+
+@module_router.route('/get_followed_new_posts', methods=['GET'])
+def get_followed_users_post_new_route():
+    students_list = request.args.get('students_list')
+    focus_time = request.args.get('focus_time')
+    return get_followed_users_post_new(students_list,focus_time)
+
+@module_router.route('/get_followed_old_posts', methods=['GET'])
+def get_followed_users_post_old_route():
+    students_list = request.args.get('students_list')
+    focus_time = request.args.get('focus_time')
+    return get_followed_users_post_old(students_list,focus_time)
+
+@module_router.route('/get_follow_list', methods=['GET'])
+def get_follow_list_route():
+    student_id = request.args.get('student_id')
+    return get_follow_list(student_id)
+
+@module_router.route('/get_my_interests', methods=['GET'])
+def get_my_interests_route():
+    student_id = request.args.get('student_id')
+    return get_my_interests(student_id)
+
+@module_router.route('/get_students_having_same_interest', methods=['GET'])
+def get_students_having_same_interest_route():
+    my_interests = request.args.get('my_interests')
+    my_student_id = request.args.get('my_student_id')
+    return get_students_having_same_interest(my_interests, my_student_id)
+
 @module_router.route('/get_career_info', methods=['GET'])
-def get_career_info():
+def get_career_info_route():
     user_id = request.args.get('student_id')
     return get_career_info(user_id)
 
-@module_router.route('/search_user_get', methods=['GET'])
-def search_user_get_route():
+@module_router.route('/get_search_user', methods=['GET'])
+def get_search_user_route():
     text = request.args.get('search_text')
-    return search_user_get(text)
+    return get_search_user(text)
 
 @module_router.route('/add_student', methods=['POST'])
 def add_student():
-    return add_student()
+    return add_student()    
+
+@module_router.route('/get_student_interest', methods=['GET'])
+def get_student_interest_route():
+    user_id = request.args.get('user_id')
+    return get_student_interest(user_id)
+
+@module_router.route('/add_student_interest', methods=['POST'])
+def add_student_interest_route():
+    return add_stundent_interest()
+
+@module_router.route('/get_like_count', methods=['GET'])
+def get_like_count_route():
+    post_id = request.args.get('post_id')
+    return get_like_count(post_id)
+
+@module_router.route('/get_bookmark_status', methods=['GET'])
+def get_bookmark_status_route():
+    user_id = request.args.get('user_id')
+    post_id = request.args.get('post_id')
+    return get_bookmark_status(user_id, post_id)
+
+@module_router.route('/get_like_status', methods=['GET'])
+def get_like_status_route():
+    user_id = request.args.get('user_id')
+    post_id = request.args.get('post_id')
+    return get_like_status(user_id, post_id)
+
+@module_router.route('/post_liked_user_info', methods=['POST'])
+def add_liked_user_route():
+    return add_liked_user()
+
+@module_router.route('/post_liked_user_info', methods=['DELETE'])
+def del_liked_user_route():
+    return del_liked_user()
+
+@module_router.route('/post_bookmarked_user_info', methods=['POST'])
+def add_bookmarked_user_route():
+    return add_bookmarked_user()
+
+@module_router.route('/post_bookmarked_user_info', methods=['DELETE'])
+def del_bookmarked_user_route():
+    return del_bookmarked_user()
+
+@module_router.route('/get_timeline_comment', methods=['GET'])
+def get_timeline_comment_route():
+    post_id = request.args.get('post_id')
+    focus_time = request.args.get('focus_time')
+    return get_timeline_comment(post_id, focus_time)

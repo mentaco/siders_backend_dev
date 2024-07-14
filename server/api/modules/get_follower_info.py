@@ -1,17 +1,20 @@
-from flask import jsonify, request
+from flask import jsonify
 from .execute_query import exec_query
 
 #フォロワーリストを取得する関数
 def get_follower_info(user_id):
     try:
-        query = "SELECT user_id_from, relation_code FROM user_relation_t WHERE user_id_to = %s AND relation_code = 0"
+        query = """
+            SELECT user_relation_t.user_id_from, user_relation_t.relation_code,
+            student_info_t.handle_name, student_info_t.profile_image
+            FROM user_relation_t
+            JOIN student_info_t ON user_relation_t.user_id_from = student_info_t.student_id
+            WHERE user_relation_t.user_id_to = %s
+        """
         params = (user_id,)
         result = exec_query(query, params)
         if result:
-            follower_list = []
-            for row in result:
-                follower_list.append(row['user_id_from'])
-            return jsonify(follower_list)
+            return jsonify(result)
         else:
             return jsonify({'error': 'User not found'}), 404
 

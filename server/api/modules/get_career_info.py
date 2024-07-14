@@ -1,17 +1,23 @@
-from flask import jsonify, request
+import re
+from flask import jsonify
 from .execute_query import exec_query
 
-def get_student_career_info(student_id):
+def get_career_info(student_id):
     try:
         query = """
             SELECT career_id, affiliation_id, career_title, career_detail, career_start_at, career_end_at,
-                publication_status, carrer_type_code, result_num, carrer_image_1, carrer_image_2, carrer_image_3
+                publication_status, career_type_code, result_num, career_image_1, career_image_2, career_image_3
             FROM career_info_t
             WHERE student_id = %s
         """
         params = (student_id,)
 
         result = exec_query(query, params)
+
+        # 日付の表示形式を YYYY-MM-DD にする
+        for content in result:
+            content['career_start_at'] = content['career_start_at'].strftime('%Y-%m-%d')
+            content['career_end_at'] = content['career_end_at'].strftime('%Y-%m-%d')
 
         if result:
             return jsonify(result)

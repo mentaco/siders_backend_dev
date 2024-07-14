@@ -1,6 +1,6 @@
 from flask import jsonify, request
 from .execute_query import exec_query
-# データを取得する関数の例
+# user_idに関連するメッセージを取得する関数
 def get_message(user_id):
     try:
         params = (user_id,)*14
@@ -47,7 +47,7 @@ def get_message(user_id):
         return jsonify({'data': result})
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-# データを挿入する関数の例
+# メッセージデータを挿入する関数
 def add_message():
     try:
         # シーケンスの取得
@@ -64,10 +64,4 @@ def add_message():
         return jsonify({'message': 'Data added successfully'})
     except Exception as e:
         return jsonify({'error': str(e)}), 400
-# # データを削除する関数の例
-# def example_del_data():
-#     try:
-#         data = request.get_json()
-#         skill_id = data.get('skill_id')
-#         params = (skill_id,)
-#         query = 'DELETE FROM skill_t WHERE skill_id = %s'
+
