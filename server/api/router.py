@@ -181,3 +181,11 @@ def get_timeline_comment_route():
 @module_router.route('/add_user_info', methods=['POST'])
 def add_user_info():
     return add_user_info()
+
+@module_router.route('/add_auth_info',methods=['POST'])
+def add_auth_info():
+    return add_auth_info()
+
+@module_router.route('add_interest_info', methods=['POST'])
+def add_interest_info():
+    return add_interest_info()
