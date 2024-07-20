@@ -2,4 +2,4 @@
 /data/*
 __pycache__
 /server/siders-server/
-# .env
+/.env
