@@ -44,7 +44,7 @@ LEFT JOIN
 WHERE
     m.message_from = %s OR m.message_to = %s
 ORDER BY
-    m.message_created_at DESC;
+    m.message_created_at ASC;
                  """)
         result = exec_query(query,params)
         return jsonify({'data': result})
