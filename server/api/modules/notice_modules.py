@@ -14,7 +14,7 @@ SELECT
   END AS from_name,
   CASE
     WHEN LEFT(m.message_from, 1) = 'S' THEN s.profile_image
-    WHEN LEFT(m.message_from, 1) = 'C' THEN c.company_header_image
+    WHEN LEFT(m.message_from, 1) = 'C' THEN c.company_logomark
     ELSE NULL
   END AS from_image,
   m.message_from,
