@@ -194,3 +194,24 @@ def get_user_profile_image_path_route():
 def get_user_header_image_path_route():
     student_id = request.args.get('student_id')
     return get_user_header_image_path(student_id)
+
+@module_router.route('/get_scout_ids', methods=['GET'])
+def get_scout_ids_route():
+    student_id = request.args.get('student_id')
+    return get_scout_ids(student_id)
+
+@module_router.route('/get_scout_list', methods=['GET'])
+def get_scout_list_route():
+    scout_ids = request.args.get('scout_ids')
+    return get_scout_list(scout_ids)
+
+@module_router.route('/get_work_ids', methods=['GET'])
+def get_work_ids_route():
+    student_id = request.args.get('student_id')
+    return get_work_ids(student_id)
+
+@module_router.route('/get_work_list', methods=['GET'])
+def get_work_list_route():
+    work_ids = request.args.get('work_ids')
+    return get_work_list(work_ids)
+
