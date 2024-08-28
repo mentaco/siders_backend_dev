@@ -183,6 +183,51 @@ def get_timeline_comment_route():
     focus_time = request.args.get('focus_time')
     return get_timeline_comment(post_id, focus_time)
 
+@module_router.route('/get_follow_count', methods=['GET'])
+def get_follow_count_route():
+    student_id = request.args.get('student_id')
+    return get_follow_count(student_id)
+
+@module_router.route('/get_follower_count', methods=['GET'])
+def get_follower_count_route():
+    student_id = request.args.get('student_id')
+    return get_follower_count(student_id)
+
+@module_router.route('/get_user_name', methods=['GET'])
+def get_user_name_route():
+    student_id = request.args.get('student_id')
+    return get_user_name(student_id)
+
+@module_router.route('/get_user_profile_image_path', methods=['GET'])
+def get_user_profile_image_path_route():
+    student_id = request.args.get('student_id')
+    return get_user_profile_image_path(student_id)
+
+@module_router.route('/get_user_header_image_path', methods=['GET'])
+def get_user_header_image_path_route():
+    student_id = request.args.get('student_id')
+    return get_user_header_image_path(student_id)
+
+@module_router.route('/get_scout_ids', methods=['GET'])
+def get_scout_ids_route():
+    student_id = request.args.get('student_id')
+    return get_scout_ids(student_id)
+
+@module_router.route('/get_scout_list', methods=['GET'])
+def get_scout_list_route():
+    scout_ids = request.args.get('scout_ids')
+    return get_scout_list(scout_ids)
+
+@module_router.route('/get_work_ids', methods=['GET'])
+def get_work_ids_route():
+    student_id = request.args.get('student_id')
+    return get_work_ids(student_id)
+
+@module_router.route('/get_work_list', methods=['GET'])
+def get_work_list_route():
+    work_ids = request.args.get('work_ids')
+    return get_work_list(work_ids)
+
 @module_router.route('/add_user_info', methods=['POST'])
 def add_user_info():
     return add_user_info()
