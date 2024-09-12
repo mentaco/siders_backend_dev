@@ -42,6 +42,10 @@ def get_message_route():
 def add_message_route():
     return add_message()
 
+@module_router.route('/read_message', methods=['POST'])
+def read_message_route():
+    return read_message()
+
 @module_router.route('/get_notice_data', methods=['GET'])
 def get_notice_data_route():
     arg1 = request.args.get('user_id')
@@ -52,10 +56,14 @@ def get_student_id_route():
     email = request.args.get('mail_address')
     return get_student_id(email)
 
-@module_router.route('/get_mypage_info', methods=['GET'])
-def get_mypage_info_route():
-    user_id = request.args.get('student_id')
-    return get_mypage_info(user_id)
+@module_router.route('/student_profile', methods=['GET'])
+def get_student_profile_route():
+    student_id = request.args.get('student_id')
+    return get_student_profile(student_id)
+
+@module_router.route('/student_profile', methods=['PUT'])
+def update_student_profile_route():
+    return update_student_profile()
 
 @module_router.route('/get_follow_info', methods=['GET'])
 def get_follow_info_route():
@@ -120,7 +128,12 @@ def get_career_info_route():
 @module_router.route('/get_search_user', methods=['GET'])
 def get_search_user_route():
     text = request.args.get('search_text')
-    return get_search_user(text)
+    my_student_id = request.args.get('my_student_id')
+    return get_search_user(text,my_student_id)
+
+@module_router.route('/add_student', methods=['POST'])
+def add_student():
+    return add_student()    
 
 @module_router.route('/get_student_interest', methods=['GET'])
 def get_student_interest_route():
@@ -220,3 +233,14 @@ def get_bookmarked_post_ids_route():
     student_id = request.args.get('student_id')
     return get_bookmarked_post_ids(student_id)
 
+@module_router.route('/add_user_info', methods=['POST'])
+def add_user_info():
+    return add_user_info()
+
+@module_router.route('/add_auth_info',methods=['POST'])
+def add_auth_info():
+    return add_auth_info()
+
+@module_router.route('add_interest_info', methods=['POST'])
+def add_interest_info():
+    return add_interest_info()

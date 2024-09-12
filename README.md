@@ -8,7 +8,7 @@ APIの開発はDockerのデータベースと接続して行う感じでお願�
 ```
 siders_backend_dev
 ├── data
-├── docker-compose.yaml
+├── compose.yaml
 ├── init
 │   └── init.sql
 └── server
@@ -30,10 +30,24 @@ siders_backend_dev
 `example_modules.py`にはプログラムの例が記述してあるので参考にしてください。
 
 ## 準備
-### データベースの立ち上げ
-まず、DockerのPostgreSQLをバックグラウンドで立ち上げます。
+### `.env`の作成
+`.env`をリポジトリのルートディレクトリに作成して、UIDとGIDを設定します。\
+まず、UIDとGIDを調べます。
+```bash
+id -u  # UID
+id -g  # GID
 ```
-docker-compose up -d
+UIDとGIDが分かったら、エディタで以下の例にしたがって`.env`に記述してください。
+
+例：
+```
+UID=500
+GID=20
+```
+### Docerコンテナの立ち上げ
+DockerのPostgreSQLをバックグラウンドで立ち上げます。
+```
+docker compose up -d
 ```
 データベースに直接入りたい場合は以下のコマンドを実行します。
 ```
@@ -43,7 +57,7 @@ Password for postgres: postgres
 #### データベースの終了
 データベースを終了するには以下のコマンドを実行します。
 ```
-docker-compose down -v
+docker compose down -v
 ```
 `-v`オプションはディレクトリとのマウントを解除するためのオプションであり、無くても終了できます。ただし、データベースを初期化する際には必要です。
 #### データベースの初期化
@@ -51,7 +65,7 @@ docker-compose down -v
 ```
 rm -rf data/*
 ```
-### 仮想環境
+### Pythonの仮想環境
 #### 仮想環境の作成
 仮想環境を作成するためのパッケージをインストールします。
 ```
