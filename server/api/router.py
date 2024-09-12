@@ -215,3 +215,8 @@ def get_work_list_route():
     work_ids = request.args.get('work_ids')
     return get_work_list(work_ids)
 
+@module_router.route('/get_bookmark_list', methods=['GET'])
+def get_bookmarked_post_ids_route():
+    student_id = request.args.get('student_id')
+    return get_bookmarked_post_ids(student_id)
+
