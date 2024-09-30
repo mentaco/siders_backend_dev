@@ -1,11 +1,12 @@
 from flask import Flask
 from flask import jsonify
 from .execute_query import exec_query
+import json
 
 app = Flask(__name__)
 
 #ブックマークされた投稿のIDのリストを取得する関数
-def get_bookmarked_post_ids(student_id):
+def get_bookmarked_post_ids(user_id):
 
     with app.app_context():
         try:
@@ -18,9 +19,9 @@ def get_bookmarked_post_ids(student_id):
                 user_id = %s
             """
 
-            result = exec_query(query, params=(student_id), fetch_all=True)
+            result = exec_query(query, params=(user_id,), fetch_all=True)
 
-            result_list = [row[0] for row in result]
+            result_list = [row['post_id'] for row in result]
 
             # 結果をJSON形式で返す
             return jsonify({'data': result_list})
@@ -28,13 +29,12 @@ def get_bookmarked_post_ids(student_id):
         except Exception as e:
             return jsonify({'error': str(e)})
 
-
-
-#ブックマークされた投稿を取得する関数
-def get_bookmarked_posts(post_ids, focus_time=None):
-
+# ブックマークされた投稿を取得する関数
+def get_bookmarked_posts(post_ids):
     with app.app_context():
         try:
+            post_ids = json.loads(post_ids)
+
             # クエリの基本部分
             query = """
             SELECT 
@@ -49,35 +49,26 @@ def get_bookmarked_posts(post_ids, focus_time=None):
             JOIN 
                 timeline_t tt ON si.student_id = tt.user_id
             WHERE 
-                AND tt.hidden_status = 0
+                tt.hidden_status = 0
                 AND tt.post_id = ANY (%s)
             """
 
-            # focus_timeが与えられた場合の条件を追加
-            if focus_time is not None:
-                query += " AND tt.timeline_created_at > %s"
-
-            # クエリに追加して下から5つの結果を抽出する
-            query += " ORDER BY tt.timeline_created_at DESC LIMIT 5"
-
             # クエリ実行
-            if focus_time is not None:
-                result = exec_query(query, params=(post_ids, focus_time), fetch_all=True)
-            else:
-                result = exec_query(query, params=(post_ids), fetch_all=True)
+            result = exec_query(query, params=(post_ids,), fetch_all=True)
+
+            print(result)
 
             # 結果を格納するリスト
             result_list = []
 
             for row in result:  
-                # 辞書から値のみを含むリストに変換して追加
+                # タプルから値のみを含むリストに変換して追加
                 result_list.append(list(row.values()))
-
-            # 最後の要素のtimeline_created_atを取得
-            last_timeline_created_at = result_list[0][3] # 3はtimeline_created_atのインデックス
+            
+            print(result_list)
 
             # 結果をJSON形式で返す
-            return jsonify({'data': result_list, 'last_timeline_created_at': last_timeline_created_at})
+            return jsonify({'data': result_list})
 
         except Exception as e:
             return jsonify({'error': str(e)})

@@ -228,10 +228,15 @@ def get_work_list_route():
     work_ids = request.args.get('work_ids')
     return get_work_list(work_ids)
 
-@module_router.route('/get_bookmark_list', methods=['GET'])
+@module_router.route('/get_bookmark_post_ids', methods=['GET'])
 def get_bookmarked_post_ids_route():
-    student_id = request.args.get('student_id')
-    return get_bookmarked_post_ids(student_id)
+    user_id = request.args.get('user_id')
+    return get_bookmarked_post_ids(user_id)
+
+@module_router.route('/get_bookmark_list', methods=['GET'])
+def get_bookmarked_posts_route():
+    post_ids = request.args.get('post_ids')
+    return get_bookmarked_posts(post_ids)
 
 @module_router.route('/add_user_info', methods=['POST'])
 def add_user_info():
