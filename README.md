@@ -67,18 +67,14 @@ rm -rf data/*
 ```
 ### Pythonの仮想環境
 #### 仮想環境の作成
-仮想環境を作成するためのパッケージをインストールします。
-```
-pip3 install virtualenv
-```
-次に、Pythonの仮想環境を作成します。
+Pythonの仮想環境を作成します。
 ```
 cd server
-python3 -m virtualenv siders-server
+python3 -m venv siders-server
 ```
 #### 仮想環境の起動
 次のコマンドで仮想環境を起動します。\
-Windowsでは`pip`,`python3`の代わりに`pip`,`python`でないといけないかもしれないです。\
+Windowsでは`pip3`,`python3`ではなく`pip`,`python`かもしれないです。\
 また、Fishを使っている場合は`siders-server/bin/activate`ではなく、`siders-server/bin/activate.fish`を読み込んでください。
 ```
 source siders-server/bin/activate
