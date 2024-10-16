@@ -5,7 +5,7 @@ def get_search_user(search_text, my_student_id):
     try:
         params = ('%' + search_text + '%', '%' + search_text + '%', my_student_id)
         query = """
-        SELECT si.student_id, si.handle_name, si.header_image, rt.relation_code
+        SELECT si.student_id, si.handle_name, si.profile_image, rt.relation_code
         FROM student_info_t si
         LEFT JOIN user_relation_t rt ON si.student_id = rt.user_id_to
         WHERE (si.student_id LIKE %s OR si.handle_name ILIKE %s)

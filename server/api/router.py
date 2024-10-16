@@ -249,3 +249,8 @@ def add_auth_info():
 @module_router.route('add_interest_info', methods=['POST'])
 def add_interest_info():
     return add_interest_info()
+
+@module_router.route('/get_other_user_info', methods=['GET'])
+def get_other_user_info_route():
+    user_id = request.args.get('user_id')
+    return get_other_user_info(user_id)
