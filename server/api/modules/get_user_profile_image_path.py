@@ -10,7 +10,6 @@ def get_user_profile_image_path(user_id):
 
         if result:
             userProfileImagePath = result[0]['profile_image']
-            print(userProfileImagePath)
             return jsonify({'profile_image': userProfileImagePath})
         else:
             return jsonify({'error': 'User not found'}), 404

@@ -10,7 +10,6 @@ def get_user_header_image_path(user_id):
 
         if result:
             userHeaderImagePath = result[0]['header_image']
-            print(userHeaderImagePath)
             return jsonify({'header_image': userHeaderImagePath})
         else:
             return jsonify({'error': 'User not found'}), 404

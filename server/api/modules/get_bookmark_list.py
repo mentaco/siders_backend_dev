@@ -56,16 +56,12 @@ def get_bookmarked_posts(post_ids):
             # クエリ実行
             result = exec_query(query, params=(post_ids,), fetch_all=True)
 
-            print(result)
-
             # 結果を格納するリスト
             result_list = []
 
             for row in result:  
                 # タプルから値のみを含むリストに変換して追加
                 result_list.append(list(row.values()))
-            
-            print(result_list)
 
             # 結果をJSON形式で返す
             return jsonify({'data': result_list})

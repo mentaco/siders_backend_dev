@@ -33,8 +33,6 @@ def get_timeline_comment(post_id, focus_time = None):
             result = exec_query(query, params=(post_id, focus_time), fetch_all=True)
         else:
             result = exec_query(query, params=(post_id,), fetch_all=True)
-        
-        print(result)
 
         if result == [] :
             return jsonify({'message': 'コメントがありません'})

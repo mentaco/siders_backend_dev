@@ -72,7 +72,6 @@ def get_students_having_same_interest(my_interests, my_student_id):
             # student_idの降順に並び替え
             same_interest_students_list = sorted(list(same_interest_students))
 
-            #print(same_interest_students_list)
 
             # 自分のフォローしているユーザのリストを取得
             res = get_follow_list(my_student_id).data
@@ -80,8 +79,6 @@ def get_students_having_same_interest(my_interests, my_student_id):
             res_data = json.loads(res)
 
             my_followed_students = res_data['data']
-
-            #print(my_followed_students)
 
             # my_followed_studentsに含まれる要素をsorted_studentsから削除
             same_interest_students_list = [student_id for student_id in same_interest_students_list if student_id not in my_followed_students]
