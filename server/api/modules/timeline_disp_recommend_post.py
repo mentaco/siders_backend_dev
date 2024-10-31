@@ -1,7 +1,7 @@
 from flask import Flask
 from .execute_query import exec_query
 from flask import jsonify
-from .timeline_disp_followed_post import get_follow_list, get_followed_users_post_old, get_followed_users_post_new
+from .timeline_disp_followed_post import get_follow_list
 import json
 
 app = Flask(__name__)
