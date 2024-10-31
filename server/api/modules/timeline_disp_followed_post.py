@@ -31,7 +31,9 @@ def get_follow_list(user_id_from):
             return jsonify({'error': str(e)}), 500
 
 
-def get_followed_users_post_new(students_list, focus_time=None):
+def get_new_posts(students_list, focus_time=None):
+
+    students_list = divide_students_list(students_list)
 
     with app.app_context():
         try:
@@ -67,6 +69,9 @@ def get_followed_users_post_new(students_list, focus_time=None):
             else:
                 result = exec_query(query, params=(students_list,), fetch_all=True)
 
+            if result == []:
+                return jsonify({'message': '新しい投稿はありません'})
+
             # 結果を格納するリスト
             result_list = []
 
@@ -74,18 +79,18 @@ def get_followed_users_post_new(students_list, focus_time=None):
                 # 辞書から値のみを含むリストに変換して追加
                 result_list.append(list(row.values()))
 
-            # 最後の要素のtimeline_created_atを取得
-            last_timeline_created_at = result_list[0][3] # 3はtimeline_created_atのインデックス
+            # 取得した中で、最新の投稿時間を取得
+            latest_post_created_at = result_list[-1][3] # 3はtimeline_created_atのインデックス
 
             # 結果をJSON形式で返す
-            return jsonify({'data': result_list, 'last_timeline_created_at': last_timeline_created_at})
+            return jsonify({'data': result_list, 'latest_post_created_at': latest_post_created_at})
 
         except Exception as e:
             return jsonify({'error': str(e)})
 
 
 # 以前のユーザの投稿を取得する関数(下に引っ張って更新)
-def get_followed_users_post_old(students_list, focus_time):
+def get_past_posts(students_list, focus_time):
 
     students_list = divide_students_list(students_list)
 
@@ -114,6 +119,9 @@ def get_followed_users_post_old(students_list, focus_time):
             # クエリ実行
             result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
 
+            if result == []:
+                return jsonify({'message': '投稿を全て表示しました'})
+
             # 結果を格納するリスト
             result_list = []
 
@@ -121,10 +129,13 @@ def get_followed_users_post_old(students_list, focus_time):
                 # 辞書から値のみを含むリストに変換して追加
                 result_list.append(list(row.values()))
 
-            # 最後の要素のtimeline_created_atを返す。これをプロバイダに保持させておく。
-            last_timeline_created_at = result_list[-1][3]  # 3はtimeline_created_atのインデックス
+             # 取得した中で最も遅い時間に投稿されたの投稿時間を取得
+            oldest_post_created_at = result_list[-1][3]  # 3はtimeline_created_atのインデックス
+
+             # 取得した中で最新のtimeline_created_atを返す。
+            latest_post_created_at = result_list[0][3]  # 3はtimeline_created_atのインデックス
             
-            return jsonify({'data': result_list, 'last_timeline_created_at': last_timeline_created_at})
+            return jsonify({'data': result_list, 'oldest_post_created_at': oldest_post_created_at, 'latest_post_created_at': latest_post_created_at})
 
         except Exception as e:
             return jsonify({'error': str(e)})

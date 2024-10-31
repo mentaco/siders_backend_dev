@@ -92,17 +92,17 @@ def del_skill_info_route():
 def update_skill_info_route():
     return update_skill_info()
 
-@module_router.route('/get_followed_new_posts', methods=['GET'])
-def get_followed_users_post_new_route():
+@module_router.route('/get_new_posts', methods=['GET'])
+def get_new_posts_route():
     students_list = request.args.get('students_list')
     focus_time = request.args.get('focus_time')
-    return get_followed_users_post_new(students_list,focus_time)
+    return get_new_posts(students_list,focus_time)
 
-@module_router.route('/get_followed_old_posts', methods=['GET'])
-def get_followed_users_post_old_route():
+@module_router.route('/get_past_posts', methods=['GET'])
+def get_users_past_posts_route():
     students_list = request.args.get('students_list')
     focus_time = request.args.get('focus_time')
-    return get_followed_users_post_old(students_list,focus_time)
+    return get_past_posts(students_list,focus_time)
 
 @module_router.route('/get_follow_list', methods=['GET'])
 def get_follow_list_route():

@@ -10,7 +10,6 @@ def get_user_name(user_id):
 
         if result:
             userName = result[0]['handle_name']
-            print(userName)
             return jsonify({'handle_name': userName})
         else:
             return jsonify({'error': 'User not found'}), 404
