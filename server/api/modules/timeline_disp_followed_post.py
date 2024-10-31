@@ -33,6 +33,8 @@ def get_follow_list(user_id_from):
 
 def get_new_posts(students_list, focus_time=None):
 
+    students_list = divide_students_list(students_list)
+
     with app.app_context():
         try:
             # クエリの基本部分
@@ -66,6 +68,9 @@ def get_new_posts(students_list, focus_time=None):
                 result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
             else:
                 result = exec_query(query, params=(students_list,), fetch_all=True)
+
+            if result == []:
+                return jsonify({'message': '新しい投稿はありません'})
 
             # 結果を格納するリスト
             result_list = []
@@ -113,6 +118,9 @@ def get_past_posts(students_list, focus_time):
 
             # クエリ実行
             result = exec_query(query, params=(students_list, focus_time), fetch_all=True)
+
+            if result == []:
+                return jsonify({'message': '投稿を全て表示しました'})
 
             # 結果を格納するリスト
             result_list = []
