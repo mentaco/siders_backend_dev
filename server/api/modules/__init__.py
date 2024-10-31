@@ -27,3 +27,4 @@ from .get_scout_list import *
 from .get_work_list import *
 from .get_bookmark_list import *
 from .get_other_user_info import *
+from .get_company_info import *
