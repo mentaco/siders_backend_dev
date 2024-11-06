@@ -25,8 +25,8 @@ def get_timeline_comment(post_id, focus_time = None):
         if focus_time is not None:
             query += " AND tt.timeline_created_at < %s"
 
-        # クエリに追加して下から10つの結果を抽出する
-        query += " ORDER BY tt.timeline_created_at DESC LIMIT 10"
+        # クエリに追加して下から7つの結果を抽出する
+        query += " ORDER BY tt.timeline_created_at DESC LIMIT 7"
 
         # クエリ実行
         if focus_time is not None:
@@ -45,10 +45,10 @@ def get_timeline_comment(post_id, focus_time = None):
             result_list.append(list(row.values()))
 
         # 最新の要素のtimeline_created_atを取得
-        last_timeline_created_at = result_list[0][3] # 3はtimeline_created_atのインデックス
+        oldest_post_created_at = result_list[-1][3] # 3はtimeline_created_atのインデックス
 
         # 結果をJSON形式で返す
-        return jsonify({'data': result_list, 'last_timeline_created_at': last_timeline_created_at})
+        return jsonify({'data': result_list, 'oldest_post_created_at': oldest_post_created_at})
 
     except Exception as e:
         return jsonify({'error': str(e)})
