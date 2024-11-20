@@ -253,7 +253,8 @@ def add_interest_info():
 @module_router.route('/get_other_user_info', methods=['GET'])
 def get_other_user_info_route():
     user_id = request.args.get('user_id')
-    return get_other_user_info(user_id)
+    mystudent_id = request.args.get('mystudent_id')
+    return get_other_user_info(user_id,mystudent_id)
 
 @module_router.route('/get_company_info', methods=['GET'])
 def get_company_info_route():
