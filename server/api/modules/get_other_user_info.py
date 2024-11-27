@@ -24,13 +24,13 @@ def get_other_user_info(user_id,mystudent_id):
         LEFT JOIN (
             SELECT user_id_to, COUNT(*) AS followerCount
             FROM user_relation_t
-            WHERE relation_code = 0
+            WHERE relation_code = 0 OR relation_code = 1
             GROUP BY user_id_to
         ) followers ON followers.user_id_to = s.student_id
         LEFT JOIN (
             SELECT user_id_from, COUNT(*) AS followingCount
             FROM user_relation_t
-            WHERE relation_code = 0
+            WHERE relation_code = 0 OR relation_code = 1
             GROUP BY user_id_from
         ) following ON following.user_id_from = s.student_id
         LEFT JOIN (
